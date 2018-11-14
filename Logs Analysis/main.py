@@ -6,7 +6,7 @@ class Report:
 
 
     def __init__(self):
-        self.conn = psycopg2.connect(dbname="news", user="postgres", password="", host="localhost", port="5432")
+        self.conn = psycopg2.connect(dbname="news", user="postgres", password="bgmdsjy054", host="localhost", port="5432")
 
 
 
@@ -20,7 +20,14 @@ class Report:
         for i in rows:
             print(i[0], " -- ", i[1], " views")
 
-    
+    def most_popular_article_author(self):
+        cur = self.conn.cursor()
+
+        cur.execute('''select au.name, count(l."path") from log l LEFT JOIN articles ar on l."path" ~ ar.slug LEFT JOIN authors au on ar.author = au."id" WHERE l.status != '404 NOT FOUND' and l."path" != '/' GROUP BY au.name, ar.title, l."path" ORDER BY count("path") DESC''')
+        rows = cur.fetchall()
+        print("The most popular article authors of all time")
+        for i in rows:
+            print(i[0], " -- ", i[1], " views")
 
 
 
@@ -31,3 +38,4 @@ class Report:
 
 report = Report()
 report.most_popular_article()
+report.most_popular_article_author()
