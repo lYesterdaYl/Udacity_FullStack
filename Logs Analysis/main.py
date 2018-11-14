@@ -23,12 +23,11 @@ class Report:
     def most_popular_article_author(self):
         cur = self.conn.cursor()
 
-        cur.execute('''select au.name, count(l."path") from log l LEFT JOIN articles ar on l."path" ~ ar.slug LEFT JOIN authors au on ar.author = au."id" WHERE l.status != '404 NOT FOUND' and l."path" != '/' GROUP BY au.name, ar.title, l."path" ORDER BY count("path") DESC''')
+        cur.execute('''select au.name, count(l."path") from log l LEFT JOIN articles ar on l."path" ~ ar.slug LEFT JOIN authors au on ar.author = au."id" WHERE l.status != '404 NOT FOUND' and l."path" != '/' GROUP BY au.name ORDER BY count(au.name) DESC''')
         rows = cur.fetchall()
         print("The most popular article authors of all time")
         for i in rows:
             print(i[0], " -- ", i[1], " views")
-
 
 
 
