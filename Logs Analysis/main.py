@@ -66,19 +66,53 @@ class Report:
         result = {}
         cur = self.conn.cursor()
 
-        cur.execute('''select date(time), count(status) from log WHERE status != '200 OK' GROUP BY date(time) ORDER BY date(time)''')
-        error = cur.fetchall()
-        cur.execute('''select date(time), count(status) from log WHERE status = '200 OK' GROUP BY date(time) ORDER BY date(time)''')
-        no_error = cur.fetchall()
+        cur.execute(
+            '''
+            SELECT
+                *
+            FROM
+                (
+                    SELECT
+                        all_request. DAY,
+                        round(
+                            (
+                                CAST (
+                                    error_request.error_count AS DECIMAL
+                                ) / CAST (
+                                    all_request.all_count AS DECIMAL
+                                )
+                            ) * 100,
+                            2
+                        ) AS rate
+                    FROM
+                        (
+                            SELECT
+                                DATE (TIME) AS DAY,
+                                COUNT (ip) AS all_count
+                            FROM
+                                log
+                            GROUP BY
+                                DAY
+                        ) AS all_request
+                    INNER JOIN (
+                        SELECT
+                            DATE (TIME) AS DAY,
+                            COUNT (ip) error_count
+                        FROM
+                            log
+                        WHERE
+                            status NOT LIKE '%200%'
+                        GROUP BY
+                            DAY
+                    ) AS error_request ON all_request. DAY = error_request. DAY
+                ) AS TEMP
+            WHERE
+                rate > 1
+            ''')
+        rows = cur.fetchall()
         print("The days have more than 1% of requests lead to errors")
-        for i, j in enumerate(error):
-            error_rate = round(j[1] / no_error[i][1] * 100, 3)
-            if error_rate > 1:
-                result[j[0]] = error_rate
-
-        for date in result:
-            print(date, " -- ", result[date], "% errors")
-
+        for i in rows:
+            print(i[0], " -- ", i[1], "% errors")
 
 
 
