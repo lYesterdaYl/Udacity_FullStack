@@ -33,7 +33,7 @@ class Report:
         result = {}
         cur = self.conn.cursor()
 
-        cur.execute('''select date(time), count(status) from log WHERE status = '200 OK' GROUP BY date(time) ORDER BY date(time)''')
+        cur.execute('''select date(time), count(status) from log WHERE status != '200 OK' GROUP BY date(time) ORDER BY date(time)''')
         error = cur.fetchall()
         cur.execute('''select date(time), count(status) from log WHERE status = '200 OK' GROUP BY date(time) ORDER BY date(time)''')
         no_error = cur.fetchall()
