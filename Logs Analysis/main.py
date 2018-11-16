@@ -1,5 +1,5 @@
 import psycopg2
-
+import timeit
 
 
 class Report:
@@ -36,6 +36,7 @@ class Report:
         print("The most popular three articles of all time")
         for i in rows:
             print(i[0], " -- ", i[1], " views")
+        print()
 
     def most_popular_article_author(self):
         cur = self.conn.cursor()
@@ -61,6 +62,7 @@ class Report:
         print("The most popular article authors of all time")
         for i in rows:
             print(i[0], " -- ", i[1], " views")
+        print()
 
     def error_request(self):
         result = {}
@@ -113,11 +115,15 @@ class Report:
         print("The days have more than 1% of requests lead to errors")
         for i in rows:
             print(i[0], " -- ", i[1], "% errors")
+        print()
 
 
-
+start = timeit.default_timer()
 
 report = Report()
 report.most_popular_article()
 report.most_popular_article_author()
 report.error_request()
+
+stop = timeit.default_timer()
+print('Running Time: ', round(stop - start, 2), ' seconds')
