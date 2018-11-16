@@ -1,15 +1,17 @@
+#!/usr/bin/env python3
 import psycopg2
 import timeit
 
 
 class Report:
-
-
     def __init__(self):
-        self.conn = psycopg2.connect(dbname="news", user="postgres", password="1234", host="localhost", port="5432")
-
-
-
+        self.conn = psycopg2.connect(
+            dbname="news",
+            user="postgres",
+            password="1234",
+            host="localhost",
+            port="5432"
+        )
 
     def most_popular_article(self):
         cur = self.conn.cursor()
@@ -56,7 +58,7 @@ class Report:
             GROUP BY
                 au. NAME
             ORDER BY
-                COUNT (au. NAME) DESC            
+                COUNT (au. NAME) DESC
             ''')
         rows = cur.fetchall()
         print("The most popular article authors of all time")
