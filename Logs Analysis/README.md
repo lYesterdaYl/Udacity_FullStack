@@ -1,6 +1,10 @@
-# Restaurant Review App
+# Logs Analysis
 
 This Project was created for my Udacity Nanodegree. It was built for data analysis for a news database log.
+
+## Sample Output
+
+![sample output](sample_output.jpg)
 
 ## Author
 
