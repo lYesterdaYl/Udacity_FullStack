@@ -13,7 +13,7 @@ You can download the Postgresql Data File  [Here](https://d17h27t6h515a5.cloudfr
 
 1. Clone the repository.
 2. Load the data into localhost **Postgresql** Database.
-3. Run main.py
+3. Run main.py -- `$ python3 main.py`
 
 ## How to load the data into Database
 
