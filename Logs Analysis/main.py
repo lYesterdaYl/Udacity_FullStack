@@ -6,7 +6,7 @@ class Report:
 
 
     def __init__(self):
-        self.conn = psycopg2.connect(dbname="news", user="postgres", password="bgmdsjy054", host="localhost", port="5432")
+        self.conn = psycopg2.connect(dbname="news", user="postgres", password="1234", host="localhost", port="5432")
 
 
 
