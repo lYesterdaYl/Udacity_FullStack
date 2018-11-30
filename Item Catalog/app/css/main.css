@@ -5,3 +5,28 @@ header{
     background-color: #161c57;
     padding: 0.5em;
 }
+
+.login{
+    float: right;
+    margin-right: 10em;
+    margin-top: 0.3em;
+    padding: 0.5em;
+}
+
+main{
+    height: 100%;
+    background-color: gray;
+}
+
+.content_body{
+    /*text-align: center;*/
+    width: 60%;
+    margin: 10%;
+    /*margin-left: 20%;*/
+    /*margin-right: 20%;*/
+    display: inline-block;
+    border: 2em;
+    padding: 5em;
+    border-color: black;
+    background-color: white;
+}
