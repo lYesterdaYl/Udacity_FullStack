@@ -26,8 +26,19 @@ def restaurantMenu(restaurant_id):
         output += i.price
         output += '</br>'
 
-    print(output)
     return output
+
+@app.route('/restaurants/<int:restaurant_id>/new')
+def new_Menu_Item(restaurant_id):
+    return "create successful"
+
+@app.route('/restaurants/<int:restaurant_id>/edit')
+def edot_Menu_Item(restaurant_id):
+    return "edit successful"
+
+@app.route('/restaurants/<int:restaurant_id>/delete')
+def delete_Menu_Item(restaurant_id):
+    return "delete successful"
 
 if __name__ == '__main__':
     app.debug = True
