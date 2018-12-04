@@ -1,11 +1,20 @@
-from flask import Flask
+from flask import Flask, render_template
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
 app = Flask(__name__)
 
 
-engine = create_engine('sqlite:///restaurantmenu.db?check_same_thread=False')
+# engine = create_engine('sqlite:///restaurantmenu.db?check_same_thread=False')
+DIALCT = "mysql"
+DRIVER = "pymysql"
+USERNAME = "root"
+PASSWORD = ""
+HOST = "127.0.0.1"
+PORT = "3306"
+DATABASE = "test"
+DB_URI="{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALCT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE)
+engine = create_engine(DB_URI)
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -17,23 +26,15 @@ session = DBSession()
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).first()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)
-    output = ''
-    for i in items:
-        output += i.name
-        output += '</br>'
-        output += i.description
-        output += '</br>'
-        output += i.price
-        output += '</br>'
+    return render_template('menu.html', restaurant=restaurant, items=items)
 
-    return output
 
 @app.route('/restaurants/<int:restaurant_id>/new')
 def new_Menu_Item(restaurant_id):
     return "create successful"
 
 @app.route('/restaurants/<int:restaurant_id>/edit')
-def edot_Menu_Item(restaurant_id):
+def edit_Menu_Item(restaurant_id):
     return "edit successful"
 
 @app.route('/restaurants/<int:restaurant_id>/delete')
