@@ -27,5 +27,15 @@ class MenuItem(Base):
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))
     restaurant = relationship(Restaurant)
 
-engine = create_engine('sqlite:///restaurantmenu.db')
+# engine = create_engine('sqlite:///restaurantmenu.db')
+
+DIALCT = "mysql"
+DRIVER = "pymysql"
+USERNAME = "root"
+PASSWORD = ""
+HOST = "127.0.0.1"
+PORT = "3306"
+DATABASE = "test"
+DB_URI="{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALCT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE)
+engine = create_engine(DB_URI)
 Base.metadata.create_all(engine)
