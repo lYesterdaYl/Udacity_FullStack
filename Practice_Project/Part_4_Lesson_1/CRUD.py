@@ -2,12 +2,22 @@ from sqlalchemy import  create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
 
-engine = create_engine('sqlite:///restaurantmenu.db')
+# engine = create_engine('sqlite:///restaurantmenu.db')
+DIALCT = "mysql"
+DRIVER = "pymysql"
+USERNAME = "root"
+PASSWORD = ""
+HOST = "127.0.0.1"
+PORT = "3306"
+DATABASE = "test"
+DB_URI="{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALCT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE)
+engine = create_engine(DB_URI)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 myFirstRestaurant = Restaurant(name="Pizza Palace")
+mySecondRestaurant = Restaurant(name="KFC")
 
 cheesepizza = MenuItem(name="Cheese Pizza", description="Make with XXX", course="Entree", price="$1.11", restaurant=myFirstRestaurant)
 chickenpizza = MenuItem(name="Chicken Pizza", description="Make with XXX", course="Entree", price="$3.99", restaurant=myFirstRestaurant)
