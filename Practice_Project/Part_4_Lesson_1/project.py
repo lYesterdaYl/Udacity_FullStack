@@ -21,10 +21,15 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON')
-def restaurantMenuJSON(restaurant_id):
+def restaurantMenu_JSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
     return jsonify(MenuItems=[i.serialize for i in items])
+
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def Menu_Item_JSON(restaurant_id, menu_id):
+    items = session.query(MenuItem).filter_by(id=menu_id).one()
+    return jsonify(MenuItems=items.serialize)
 
 @app.route('/')
 @app.route('/restaurants/<int:restaurant_id>/menu')
