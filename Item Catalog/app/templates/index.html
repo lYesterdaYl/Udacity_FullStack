@@ -17,11 +17,20 @@
         <section class="content_body">
             <div class="category">
                 <span>Catagories</span>
+                {% for i in categories %}
+                <div>
+                    <p>{{i.name}}</p>
+                </div>
+                {% endfor %}
             </div>
 
             <div class="latest">
                 <span>Latest Items</span>
-
+                {% for i in items %}
+                <div>
+                    <p>{{i.title}}</p>
+                </div>
+                {% endfor %}
             </div>
         </section>
 
