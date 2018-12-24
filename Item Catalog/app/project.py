@@ -26,12 +26,13 @@ def index():
     items = session.query(Item)
     return render_template('index.html', categories=categories, items=items)
 
-@app.route('/catelog/<int:category_id>/')
-def show_category(category_id):
-    category = session.query(Category).filter_by(id = category_id)
-    items = session.query(Item).filter_by(category_id = category_id)
-    return render_template('category.html',category=category, items=items)
-
+# @app.route('/catelog/<int:category_id>/')
+@app.route('/catelog/<string:category_name>/items')
+def show_category(category_name):
+    categories = session.query(Category)
+    category = session.query(Category).filter_by(name = category_name)
+    items = session.query(Item).filter_by(category_id = category[0].id)
+    return render_template('category.html',categories=categories,category=category, items=items)
 
 @app.route('/item/<int:item_id>/')
 def show_item(item_id):

@@ -9,14 +9,22 @@
 </head>
 <body>
     <header class="header">
-        <span>Catalog App</span>
+        <a href="{{url_for('index')}}">Catalog App</a>
         <button class="login">Login</button>
     </header>
     <main>
 
         <section class="content_body">
             <div class="category">
-                <span>{{category[0].name}}</span>
+                <span>Categories</span>
+                {% for i in categories %}
+                <div>
+                    <a href="{{url_for('show_category', category_name = i.name) }}">{{i.name}}</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="category">
+                <span>{{category[0].name}} Items ({{items.count()}} items)</span>
                 {% for i in items %}
                 <div>
                     <p>{{i.title}}</p>
