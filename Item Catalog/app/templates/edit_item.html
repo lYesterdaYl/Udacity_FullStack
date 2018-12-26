@@ -17,18 +17,19 @@
         <section class="content_body">
             <div class="category">
                 <span>Edit Item</span>
-                <form action="{{url_for('edit_Menu_Item', restaurant_id=restaurant_id, menu_id=item.id )}}" method = 'POST'>
+                <form action="{{url_for('edit_item', item_title=item_title, item = item )}}" method = 'POST'>
 
                     <p>Title:</p>
-                    <input type='text' size='30' name='title'>
+                    <input type='text' size='30' name='title' value="{{item.title}}">
 
                     <p>Description:</p>
-                    <input type='text' size='30' name='description'>
+                    <input type='text' size='30' name='description' value="{{item.description}}">
 
                     <p>Category:</p>
-                    <select>
+                    <select name="category">
                         {% for i in categories %}
-                        <option value ="volvo">{{i}}</option>
+
+                        <option value ="{{i.name}}">{{i.name}}</option>
                         {% endfor %}
                     </select>
                     <input type='submit' value='Edit'>

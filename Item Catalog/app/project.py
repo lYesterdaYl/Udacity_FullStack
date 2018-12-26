@@ -39,6 +39,29 @@ def show_item(item_id):
     item = session.query(Item).filter_by(id = item_id)
     return render_template('item_description.html',item = item)
 
+@app.route('/catelog/<string:item_title>/edit', methods=['GET', 'POST'])
+def edit_item(item_title):
+    editedItem = session.query(Item).filter_by(title=item_title).one()
+    categories = session.query(Category)
+    if request.method == 'POST':
+        if request.form['title']:
+            editedItem.title = request.form['title']
+            print(request.form['title'])
+        if request.form['description']:
+            editedItem.description = request.form['description']
+            print(request.form['description'])
+        if request.form['category']:
+            editedItem.category = request.form['category']
+            print(request.form['category'])
+        print(editedItem.title)
+        session.add(editedItem)
+        session.commit()
+        flash("menu item edited!")
+        return redirect(url_for('index'))
+    else:
+        return render_template(
+            'edit_item.html', item_title = item_title, item = editedItem, categories = categories)
 if __name__ == '__main__':
+    app.secret_key = "secret_key"
     app.debug = True
     app.run(host = '0.0.0.0', port = 5000)
