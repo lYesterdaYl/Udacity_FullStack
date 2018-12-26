@@ -75,6 +75,18 @@ def delete_item(item_title):
             'delete_item.html', item=deletedItem)
     return "delete successful"
 
+@app.route('/catelog/new', methods=['GET', 'POST'])
+def new_item():
+    categories = session.query(Category)
+    if request.method == 'POST':
+        new_item = Item(title = request.form['title'], description = request.form['description'], category_id = request.form['category'])
+        session.add(new_item)
+        session.commit()
+        flash("new menu item created!")
+        return redirect(url_for('index'))
+    else:
+        return render_template('new_item.html', categories=categories)
+
 if __name__ == '__main__':
     app.secret_key = "secret_key"
     app.debug = True
