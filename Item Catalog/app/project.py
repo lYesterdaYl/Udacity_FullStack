@@ -61,6 +61,20 @@ def edit_item(item_title):
     else:
         return render_template(
             'edit_item.html', item_title = item_title, item = editedItem, categories = categories)
+
+@app.route('/catelog/<string:item_title>/delete', methods=['GET', 'POST'])
+def delete_item(item_title):
+    deletedItem = session.query(Item).filter_by(title=item_title).one()
+    if request.method == 'POST':
+        session.delete(deletedItem)
+        session.commit()
+        flash("menu item deleted!")
+        return redirect(url_for('index'))
+    else:
+        return render_template(
+            'delete_item.html', item=deletedItem)
+    return "delete successful"
+
 if __name__ == '__main__':
     app.secret_key = "secret_key"
     app.debug = True
