@@ -10,10 +10,19 @@
 <body>
     <header class="header">
         <a href="{{url_for('index')}}">Catalog App</a>
-        <button class="login">Login</button>
+        <a href="{{url_for('showLogin')}}" class="login">Login</a>
     </header>
     <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
 
+        <ul>
+                {% for message in messages %}
+          <li><strong>{{message}}</strong></li>
+                {% endfor %}
+        </ul>
+            {% endif %}
+        {% endwith %}
         <section class="content_body">
             <div class="category">
                 <span>Categories</span>
