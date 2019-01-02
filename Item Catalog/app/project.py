@@ -15,7 +15,7 @@ import requests
 
 app = Flask(__name__)
 CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Restaurant Menu Application"
+APPLICATION_NAME = "Item Catalog App"
 
 DIALCT = "mysql"
 DRIVER = "pymysql"
@@ -128,7 +128,23 @@ def index():
     items = session.query(Item)
     return render_template('index.html', categories=categories, items=items)
 
-# @app.route('/catelog/<int:category_id>/')
+@app.route('/item/<int:item_id>/JSON')
+def show_item_JSON(item_id):
+    items = session.query(Item).filter_by(id = item_id)
+    return jsonify(Item=[i.serialize for i in items])
+
+@app.route('/catelog/<string:category_name>/items/JSON')
+def show_category_JSON(category_name):
+    categories = session.query(Category)
+    category = session.query(Category).filter_by(name = category_name)
+    items = session.query(Item).filter_by(category_id = category[0].id)
+    return jsonify(Item=[i.serialize for i in items])
+
+@app.route('/catelog/JSON')
+def show_all_JSON():
+    items = session.query(Item)
+    return jsonify(Item=[i.serialize for i in items])
+
 @app.route('/catelog/<string:category_name>/items')
 def show_category(category_name):
     categories = session.query(Category)
