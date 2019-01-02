@@ -15,7 +15,6 @@ class Category(Base):
 
     @property
     def serialize(self):
-        """Return object data in easily serializeable format"""
         return {
             'name': self.name,
             'id': self.id,
@@ -33,11 +32,11 @@ class Item(Base):
 
     @property
     def serialize(self):
-
         return {
             'id': self.id,
             'title': self.title,
-            'description': self.description
+            'description': self.description,
+            'category_id': self.category_id
         }
 
 DIALCT = "mysql"
