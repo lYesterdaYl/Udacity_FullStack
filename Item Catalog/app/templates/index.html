@@ -12,7 +12,7 @@
         <a href="{{url_for('index')}}">Catalog App</a>
         <a href="{{url_for('showLogin')}}" class="login">Login</a>
     </header>
-    <main>
+    <div class="content_body_1">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
 
@@ -23,7 +23,7 @@
         </ul>
             {% endif %}
         {% endwith %}
-        <section class="content_body">
+        <section class="content_body_2">
             <div class="category">
                 <span>Categories</span>
                 {% for i in categories %}
@@ -33,8 +33,8 @@
                 {% endfor %}
             </div>
 
-            <a href="{{url_for('new_item') }}">Add Item</a>
             <div class="latest">
+                <a href="{{url_for('new_item') }}">Add Item</a><br>
                 <span>Latest Items</span>
                 {% for i in items %}
                 <div>
@@ -44,7 +44,7 @@
             </div>
         </section>
 
-    </main>
+    </div>
 
 
 

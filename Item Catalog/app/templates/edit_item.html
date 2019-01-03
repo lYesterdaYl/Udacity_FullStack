@@ -12,9 +12,9 @@
         <a href="{{url_for('index')}}">Catalog App</a>
         <button class="login">Login</button>
     </header>
-    <main>
+    <div class="content_body_1">
 
-        <section class="content_body">
+        <section class="content_body_2">
             <div class="category">
                 <span>Edit Item</span>
                 <form action="{{url_for('edit_item', item_title=item_title, item = item )}}" method = 'POST'>
@@ -38,7 +38,7 @@
             </div>
         </section>
 
-    </main>
+    </div>
 
 
 

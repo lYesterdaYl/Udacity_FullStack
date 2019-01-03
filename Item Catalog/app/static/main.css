@@ -1,5 +1,6 @@
 body{
-    height: 95vh;
+    margin: 0 auto 0 auto;
+	background-color: white;
 }
 
 header{
@@ -18,21 +19,22 @@ header{
     padding: 0.5em;
 }
 
-main{
-    height: 95%;
-    background-color: gray;
-    background-size: 100% auto;
+.content_body_1{
+	margin: 2em auto 0 auto;
 }
 
-.content_body{
-    /*text-align: center;*/
-    width: 60%;
-    margin: 10%;
-    /*margin-left: 20%;*/
-    /*margin-right: 20%;*/
+.content_body_2{
+    height: 100%;
+	margin: 0 1.5em 0 1.5em;
+	padding: 1em 0 1.5em 0;
+}
+
+.category{
     display: inline-block;
-    border: 2em;
-    padding: 5em;
-    border-color: black;
-    background-color: white;
+    float: left;
+}
+
+.latest{
+    display: inline-block;
+    padding: 0 2em;
 }
