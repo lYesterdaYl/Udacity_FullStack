@@ -16,6 +16,7 @@ app = Flask(__name__)
 CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Item Catalog App"
 
+# MySQL database information
 DIALCT = "mysql"
 DRIVER = "pymysql"
 USERNAME = "root"
@@ -30,12 +31,14 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+# render login button for google account users
 @app.route('/login')
 def showLogin():
     state = ''.join([random.choice(string.ascii_uppercase + string.digits) for i in range(30)])
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
+# login with google account
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
@@ -120,7 +123,7 @@ def gconnect():
     print("done!")
     return output
 
-
+# logout
 @app.route('/gdisconnect')
 def gdisconnect():
     access_token = login_session.get('access_token')
@@ -145,12 +148,16 @@ def gdisconnect():
         del login_session['picture']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
-        return response
+        flash("you have successfully logout")
+        return redirect("/index")
+        # return response
     else:
         response = make_response(json.dumps('Failed to revoke token for given user.'), 400)
         response.headers['Content-Type'] = 'application/json'
-        return response
+        return redirect("/index")
+        # return response
 
+# main page
 @app.route('/')
 @app.route('/index')
 def index():
@@ -171,11 +178,13 @@ def show_category_JSON(category_name):
     items = session.query(Item).filter_by(category_id = category[0].id)
     return jsonify(Item=[i.serialize for i in items])
 
+# show all available items in JSON format
 @app.route('/catelog/JSON')
 def show_all_JSON():
     items = session.query(Item)
     return jsonify(Item=[i.serialize for i in items])
 
+# show all available items for a specific category in JSON format
 @app.route('/catelog/<string:category_name>/items')
 def show_category(category_name):
     categories = session.query(Category)
@@ -183,11 +192,13 @@ def show_category(category_name):
     items = session.query(Item).filter_by(category_id = category[0].id)
     return render_template('category.html',categories=categories,category=category, items=items)
 
+# show item in JSON format
 @app.route('/item/<int:item_id>/')
 def show_item(item_id):
     item = session.query(Item).filter_by(id = item_id)
     return render_template('item_description.html',item = item)
 
+# edit item information
 @app.route('/catelog/<string:item_title>/edit', methods=['GET', 'POST'])
 def edit_item(item_title):
     if 'username' not in login_session:
@@ -213,6 +224,7 @@ def edit_item(item_title):
         return render_template(
             'edit_item.html', item_title = item_title, item = editedItem, categories = categories)
 
+# delete item from a category
 @app.route('/catelog/<string:item_title>/delete', methods=['GET', 'POST'])
 def delete_item(item_title):
     if 'username' not in login_session:
@@ -228,6 +240,7 @@ def delete_item(item_title):
             'delete_item.html', item=deletedItem)
     return "delete successful"
 
+# add new item under specific category.
 @app.route('/catelog/new', methods=['GET', 'POST'])
 def new_item():
     if 'username' not in login_session:
