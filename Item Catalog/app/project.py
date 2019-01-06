@@ -190,13 +190,15 @@ def show_category(category_name):
     categories = session.query(Category)
     category = session.query(Category).filter_by(name = category_name)
     items = session.query(Item).filter_by(category_id = category[0].id)
-    return render_template('category.html',categories=categories,category=category, items=items)
+    status = 1 if "access_token" in login_session else 0
+    return render_template('category.html',categories=categories,category=category, items=items, status=status)
 
 # show item in JSON format
 @app.route('/item/<int:item_id>/')
 def show_item(item_id):
     item = session.query(Item).filter_by(id = item_id)
-    return render_template('item_description.html',item = item)
+    status = 1 if "access_token" in login_session else 0
+    return render_template('item_description.html',item = item, status=status)
 
 # edit item information
 @app.route('/catelog/<string:item_title>/edit', methods=['GET', 'POST'])
@@ -205,6 +207,7 @@ def edit_item(item_title):
         return redirect('/login')
     editedItem = session.query(Item).filter_by(title=item_title).one()
     categories = session.query(Category)
+    status = 1 if "access_token" in login_session else 0
     if request.method == 'POST':
         if request.form['title']:
             editedItem.title = request.form['title']
@@ -222,7 +225,7 @@ def edit_item(item_title):
         return redirect(url_for('index'))
     else:
         return render_template(
-            'edit_item.html', item_title = item_title, item = editedItem, categories = categories)
+            'edit_item.html', item_title = item_title, item = editedItem, categories = categories, status=status)
 
 # delete item from a category
 @app.route('/catelog/<string:item_title>/delete', methods=['GET', 'POST'])
@@ -230,6 +233,7 @@ def delete_item(item_title):
     if 'username' not in login_session:
         return redirect('/login')
     deletedItem = session.query(Item).filter_by(title=item_title).one()
+    status = 1 if "access_token" in login_session else 0
     if request.method == 'POST':
         session.delete(deletedItem)
         session.commit()
@@ -237,7 +241,7 @@ def delete_item(item_title):
         return redirect(url_for('index'))
     else:
         return render_template(
-            'delete_item.html', item=deletedItem)
+            'delete_item.html', item=deletedItem, status=status)
     return "delete successful"
 
 # add new item under specific category.
@@ -246,6 +250,7 @@ def new_item():
     if 'username' not in login_session:
         return redirect('/login')
     categories = session.query(Category)
+    status = 1 if "access_token" in login_session else 0
     if request.method == 'POST':
         new_item = Item(title = request.form['title'], description = request.form['description'], category_id = request.form['category'])
         session.add(new_item)
@@ -253,7 +258,7 @@ def new_item():
         flash("new menu item created!")
         return redirect(url_for('index'))
     else:
-        return render_template('new_item.html', categories=categories)
+        return render_template('new_item.html', categories=categories, status=status)
 
 if __name__ == '__main__':
     app.secret_key = "secret_key"
