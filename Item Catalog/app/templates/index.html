@@ -10,7 +10,12 @@
 <body>
     <header class="header">
         <a href="{{url_for('index')}}">Catalog App</a>
+        {% if not status %}
         <a href="{{url_for('showLogin')}}" class="login">Login</a>
+        {% else %}
+        <a href="{{url_for('showLogin')}}" class="login">Logout</a>
+        {% endif %}
+
     </header>
     <div class="content_body_1">
         {% with messages = get_flashed_messages() %}
@@ -34,7 +39,9 @@
             </div>
 
             <div class="latest">
+                {% if status %}
                 <a href="{{url_for('new_item') }}">Add Item</a><br>
+                {% endif %}
                 <span>Latest Items</span>
                 {% for i in items %}
                 <div>

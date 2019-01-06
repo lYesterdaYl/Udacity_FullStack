@@ -10,8 +10,11 @@
 <body>
     <header class="header">
         <a href="{{url_for('index')}}"><span>Catalog App</span></a>
-
-        <button class="login">Login</button>
+        {% if not status %}
+        <a href="{{url_for('showLogin')}}" class="login">Login</a>
+        {% else %}
+        <a href="{{url_for('showLogin')}}" class="login">Logout</a>
+        {% endif %}
     </header>
     <div class="content_body_1">
 

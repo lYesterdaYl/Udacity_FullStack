@@ -126,7 +126,8 @@ def gconnect():
 def index():
     categories = session.query(Category)
     items = session.query(Item)
-    return render_template('index.html', categories=categories, items=items)
+    status = 1 if "access_token" in login_session else 0
+    return render_template('index.html', categories=categories, items=items, status=status)
 
 @app.route('/item/<int:item_id>/JSON')
 def show_item_JSON(item_id):
