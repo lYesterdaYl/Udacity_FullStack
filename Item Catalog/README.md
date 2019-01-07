@@ -19,7 +19,7 @@ This Project was created for my Udacity Nanodegree. It was built for Item manage
 
 ## Built With
 
-* [Mysql](https://www.mysql.com/) - Used to store the data.
+* [MySQL](https://www.mysql.com/) - Used to store the data.
 * [Flask](http://flask.pocoo.org/) - Used to construct server side code.
 
 ## License
