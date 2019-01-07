@@ -41,6 +41,7 @@
             <div class="latest">
                 {% if status %}
                 <a href="{{url_for('new_item') }}">Add Item</a><br>
+                <a href="{{url_for('new_category') }}">Add Category</a><br>
                 {% endif %}
                 <span>Latest Items</span>
                 {% for i in items %}

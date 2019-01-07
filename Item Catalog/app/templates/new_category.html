@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='main.css') }}">
+    <title>Item Catalog</title>
+</head>
+<body>
+    <header class="header">
+        <a href="{{url_for('index')}}">Catalog App</a>
+        {% if not status %}
+        <a href="{{url_for('showLogin')}}" class="login">Login</a>
+        {% else %}
+        <a href="{{url_for('gdisconnect')}}" class="login">Logout</a>
+        {% endif %}
+    </header>
+    <main>
+
+        <section class="content_body">
+            <div class="category">
+                <span>New Category</span>
+                <form action="{{url_for('new_category')}}" method = 'POST'>
+
+                    <p>Name:</p>
+                    <input type='text' size='30' name='name' value="">
+
+                    <input type='submit' value='New'>
+
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+
+
+</body>
+</html>
