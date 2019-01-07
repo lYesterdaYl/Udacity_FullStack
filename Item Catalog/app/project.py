@@ -17,14 +17,14 @@ CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_i
 APPLICATION_NAME = "Item Catalog App"
 
 # MySQL database information
-DIALCT = "mysql"
-DRIVER = "pymysql"
-USERNAME = "root"
-PASSWORD = ""
-HOST = "127.0.0.1"
-PORT = "3306"
-DATABASE = "item_catalog"
-DB_URI="{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALCT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE)
+# DIALCT = "mysql"
+# DRIVER = "pymysql"
+# USERNAME = "root"
+# PASSWORD = ""
+# HOST = "127.0.0.1"
+# PORT = "3306"
+# DATABASE = "item_catalog"
+# DB_URI="{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALCT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE)
 # engine = create_engine(DB_URI)
 engine = create_engine('sqlite:///restaurantmenu.db?check_same_thread=False')
 
@@ -262,7 +262,7 @@ def new_item():
     else:
         return render_template('new_item.html', categories=categories, status=status)
 
-# add new item under specific category.
+# add new category.
 @app.route('/catelog/new_category', methods=['GET', 'POST'])
 def new_category():
     if 'username' not in login_session:

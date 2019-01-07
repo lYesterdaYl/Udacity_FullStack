@@ -39,14 +39,14 @@ class Item(Base):
             'category_id': self.category_id
         }
 
-DIALCT = "mysql"
-DRIVER = "pymysql"
-USERNAME = "root"
-PASSWORD = ""
-HOST = "127.0.0.1"
-PORT = "3306"
-DATABASE = "item_catalog"
-DB_URI="{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALCT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE)
+# DIALCT = "mysql"
+# DRIVER = "pymysql"
+# USERNAME = "root"
+# PASSWORD = ""
+# HOST = "127.0.0.1"
+# PORT = "3306"
+# DATABASE = "item_catalog"
+# DB_URI="{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALCT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE)
 # engine = create_engine(DB_URI)
 engine = create_engine('sqlite:///restaurantmenu.db')
 
