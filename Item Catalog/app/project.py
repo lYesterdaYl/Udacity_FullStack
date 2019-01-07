@@ -247,7 +247,7 @@ def delete_item(item_title):
     return "delete successful"
 
 # add new item under specific category.
-@app.route('/catelog/new', methods=['GET', 'POST'])
+@app.route('/catelog/new_item', methods=['GET', 'POST'])
 def new_item():
     if 'username' not in login_session:
         return redirect('/login')
@@ -257,10 +257,25 @@ def new_item():
         new_item = Item(title = request.form['title'], description = request.form['description'], category_id = request.form['category'])
         session.add(new_item)
         session.commit()
-        flash("new menu item created!")
+        flash("new item created!")
         return redirect(url_for('index'))
     else:
         return render_template('new_item.html', categories=categories, status=status)
+
+# add new item under specific category.
+@app.route('/catelog/new_category', methods=['GET', 'POST'])
+def new_category():
+    if 'username' not in login_session:
+        return redirect('/login')
+    status = 1 if "access_token" in login_session else 0
+    if request.method == 'POST':
+        new_category = Category(name = request.form['name'])
+        session.add(new_category)
+        session.commit()
+        flash("new category created!")
+        return redirect(url_for('index'))
+    else:
+        return render_template('new_category.html', status=status)
 
 if __name__ == '__main__':
     app.secret_key = "secret_key"
