@@ -11,7 +11,7 @@
     <header class="header">
         <a href="{{url_for('index')}}">Catalog App</a>
         {% if not status %}
-        <a href="{{url_for('showLogin')}}" class="login">Login</a>
+        <a href="{{url_for('showlogin')}}" class="login">Login</a>
         {% else %}
         <a href="{{url_for('gdisconnect')}}" class="login">Logout</a>
         {% endif %}
