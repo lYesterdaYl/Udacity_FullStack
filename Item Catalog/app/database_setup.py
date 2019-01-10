@@ -55,16 +55,16 @@ class Item(Base):
         }
 
 
-# DIALCT = "mysql"
-# DRIVER = "pymysql"
-# USERNAME = "root"
-# PASSWORD = ""
-# HOST = "127.0.0.1"
-# PORT = "3306"
-# DATABASE = "item_catalog"
-# DB_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8"\
-#     .format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE)
-# engine = create_engine(DB_URI)
-engine = create_engine('sqlite:///restaurantmenu.db')
+DIALCT = "mysql"
+DRIVER = "pymysql"
+USERNAME = "root"
+PASSWORD = ""
+HOST = "127.0.0.1"
+PORT = "3306"
+DATABASE = "item_catalog"
+DB_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8"\
+    .format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE)
+engine = create_engine(DB_URI)
+# engine = create_engine('sqlite:///restaurantmenu.db')
 
 Base.metadata.create_all(engine)
