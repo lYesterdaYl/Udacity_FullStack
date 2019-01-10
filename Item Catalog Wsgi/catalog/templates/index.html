@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='main.css') }}">
+    <title>Item Catalog</title>
+</head>
+<body>
+    <header class="header">
+        <a href="{{url_for('index')}}">Catalog App</a>
+        {% if not status %}
+        <a href="{{url_for('showlogin')}}" class="login">Login</a>
+        {% else %}
+        <a href="{{url_for('gdisconnect')}}" class="login">Logout</a>
+        {% endif %}
+
+    </header>
+    <div class="content_body_1">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+
+        <ul>
+                {% for message in messages %}
+          <li><strong>{{message}}</strong></li>
+                {% endfor %}
+        </ul>
+            {% endif %}
+        {% endwith %}
+        <section class="content_body_2">
+            <div class="category">
+                <span>Categories</span>
+                {% for i in categories %}
+                <div>
+                    <a href="{{url_for('show_category', category_name = i.name) }}">{{i.name}}</a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="latest">
+                {% if status %}
+                <a href="{{url_for('new_item') }}">Add Item</a><br>
+                <a href="{{url_for('new_category') }}">Add Category</a><br>
+                {% endif %}
+                <span>Latest Items</span>
+                {% for i in items %}
+                <div>
+                    <a href="{{url_for('show_item', item_id = i.id) }}">{{i.title}}</a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
+
+
+
+</body>
+</html>

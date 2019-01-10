@@ -15,7 +15,7 @@ import json
 import requests
 
 app = Flask(__name__)
-CLIENT_ID = json.loads(open('client_secrets.json', 'r')
+CLIENT_ID = json.loads(open('/var/www/Flask_App/catalog/client_secrets.json', 'r')
                        .read())['web']['client_id']
 APPLICATION_NAME = "Item Catalog App"
 
@@ -23,7 +23,7 @@ APPLICATION_NAME = "Item Catalog App"
 DIALCT = "mysql"
 DRIVER = "pymysql"
 USERNAME = "root"
-PASSWORD = ""
+PASSWORD = "root"
 HOST = "127.0.0.1"
 PORT = "3306"
 DATABASE = "item_catalog"
@@ -64,7 +64,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/Flask_App/catalog/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -78,11 +78,8 @@ def gconnect():
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
            % access_token)
     h = httplib2.Http()
-    # response = h.request(url, 'GET')
-    # result = json.loads(h.request(url, 'GET')[1])
-    response = requests.get(url)
-    result = json.loads(response.text)
-    print(result)
+    response = h.request(url, 'GET')
+    result = json.loads(h.request(url, 'GET')[1].decode())
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)

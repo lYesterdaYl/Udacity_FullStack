@@ -1,0 +1,40 @@
+body{
+    margin: 0 auto 0 auto;
+	background-color: white;
+}
+
+header{
+    height: 5%;
+    color: white;
+    font-size: 1.7em;
+    font-weight: bold;
+    background-color: #161c57;
+    padding: 0.5em;
+}
+
+.login{
+    float: right;
+    margin-right: 10em;
+    margin-top: 0.3em;
+    padding: 0.5em;
+}
+
+.content_body_1{
+	margin: 2em auto 0 auto;
+}
+
+.content_body_2{
+    height: 100%;
+	margin: 0 1.5em 0 1.5em;
+	padding: 1em 0 1.5em 0;
+}
+
+.category{
+    display: inline-block;
+    float: left;
+}
+
+.latest{
+    display: inline-block;
+    padding: 0 2em;
+}
