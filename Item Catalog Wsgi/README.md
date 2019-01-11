@@ -5,7 +5,7 @@ This Project was created for my Udacity Nanodegree. It was built for Item manage
 
 ## Access Information
 1. IP: ```52.38.28.190``` Port: ```2200```
-2. URL: http://www.ordinaryzone.com/
+2. URL: not available.
 3. Software: MySQL, Flask, mod_wsgi
 4. Changes made: <br>
    ```1. created new user grader```<br>
