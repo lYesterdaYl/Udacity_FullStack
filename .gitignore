@@ -3,3 +3,4 @@ venv
 *.pyc
 Practice_Project/Part_4_Lesson_1/restaurantmenu.db
 *.db
+Item Catalog Wsgi/id_rsa

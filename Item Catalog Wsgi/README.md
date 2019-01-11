@@ -14,7 +14,7 @@ This Project was created for my Udacity Nanodegree. It was built for Item manage
    ```4. change timezone to UTC```<br>
    ```5. deploy item catalog project on apache server```<br>
    ```6. install MySQL database to store the data for the catalog project```
-5. Private Key is [id_rsa](id_rsa)<br>
+5. Private Key is [removed](id_rsa)<br>
     grader can ssh log with command ```ssh -i id_rsa grader@52.38.28.190 -p 2200```
 ## Author
 
